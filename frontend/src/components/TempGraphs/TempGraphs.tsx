@@ -49,7 +49,7 @@ function TempGraphs(props: TempGraphProps) {
 
   const fetchTempsThisMonth = async function () {
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/temps_this_month",
+      "http://raspberrypi.local/thermoApp.fcgi/temps_this_month",
       {
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function TempGraphs(props: TempGraphProps) {
 
   const fetchTempsThisYear = async function () {
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/temps_this_year",
+      "http://raspberrypi.local/thermoApp.fcgi/temps_this_year",
       {
         headers: {
           "Content-Type": "application/json",

@@ -22,7 +22,7 @@ function TempSearchForm(props: TempSearchFormProps) {
     event.preventDefault();
     props.resetCurrentPage();
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/search_temp_pagination",
+      "http://raspberrypi.local/thermoApp.fcgi/search_temp_pagination",
       {
         method: "POST",
         mode: "cors",

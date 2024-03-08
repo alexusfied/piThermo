@@ -41,7 +41,7 @@ export function App() {
   const fetchCurrentTemp = async function () {
     try {
       const response = await fetch(
-        "http://192.168.1.150/thermoApp.fcgi/current_temp",
+        "http://raspberrypi.local/thermoApp.fcgi/current_temp",
         {
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export function App() {
 
   const fetchAvgTempTotal = async function () {
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/avg_temp_total",
+      "http://raspberrypi.local/thermoApp.fcgi/avg_temp_total",
       {
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export function App() {
 
   const fetchHighestTempTotal = async function () {
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/highest_temp_total",
+      "http://raspberrypi.local/thermoApp.fcgi/highest_temp_total",
       {
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export function App() {
 
   const fetchLowestTempTotal = async function () {
     const response = await fetch(
-      "http://192.168.1.150/thermoApp.fcgi/lowest_temp_total",
+      "http://raspberrypi.local/thermoApp.fcgi/lowest_temp_total",
       {
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export function App() {
   const fetchTodaysTemps = async function () {
     try {
       const response = await fetch(
-        "http://192.168.1.150/thermoApp.fcgi/todays_temps",
+        "http://raspberrypi.local/thermoApp.fcgi/todays_temps",
         {
           headers: {
             "Content-Type": "application/json",
