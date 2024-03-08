@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from read_temperature import read_temp
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv("./.env")
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -16,7 +20,7 @@ from read_temperature import read_temp
 
 app = Flask(__name__)
 cors = CORS(app)
-DATABASE = '/home/alex/Dokumente/thermometer/db/temperatures.db'
+DATABASE = os.getenv("DATABASE_PATH")
 
 def get_db():
     db = getattr(g, '_database', None)
