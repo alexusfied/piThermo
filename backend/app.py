@@ -4,20 +4,12 @@ from read_temperature import read_temp
 from datetime import datetime
 from dotenv import load_dotenv
 import os
-
-load_dotenv("./.env")
-
-app = Flask(__name__)
-cors = CORS(app)
-
-if __name__ == '__main__':
-    app.run()
 import sqlite3
 from flask import Flask, request, g
 from flask_cors import CORS
 from read_temperature import read_temp
 
-
+load_dotenv("./.env")
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = os.getenv("DATABASE_PATH")
