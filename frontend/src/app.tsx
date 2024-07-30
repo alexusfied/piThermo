@@ -10,25 +10,30 @@ import TempSearchForm from "./components/TempSearchForm";
 import TempSearchResponse from "./components/TempSearchResponse";
 import TempGraphs from "./components/TempGraphs/TempGraphs";
 import SingleTemp from "./components/SingleTemp";
+import {
+  fetchCurrentTemp,
+  fetchAvgTempTotal,
+  fetchHighestTempTotal,
+  fetchLowestTempTotal,
+  fetchTodaysTemps,
+} from "./services/temperatureService";
 
 interface SearchResponsePaginated {
   body: {
     [index: number]: temperature[];
   };
 }
-
 interface temperature {
   date: string;
   temperature: string;
 }
 
 export function App() {
-  // Store the current temperature to display it
-  const [currentTemp, setCurrentTemp] = useState("");
-  const [avgTempTotal, setAvgTempTotal] = useState("");
-  const [highestTempTotal, setHighestTempTotal] = useState("");
-  const [lowestTempTotal, setLowestTempTotal] = useState("");
-  const [todaysTemps, setTodaysTemps] = useState([]);
+  const [currentTemp, setCurrentTemp] = useState<string>("");
+  const [avgTempTotal, setAvgTempTotal] = useState<string>("");
+  const [highestTempTotal, setHighestTempTotal] = useState<string>("");
+  const [lowestTempTotal, setLowestTempTotal] = useState<string>("");
+  const [todaysTemps, setTodaysTemps] = useState<number[]>([]);
   const [searchResponse, setSearchResponse] = useState<SearchResponsePaginated>(
     {
       body: [],
@@ -37,96 +42,16 @@ export function App() {
   const [searchResponseVisible, setSearchResponseVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Async function, which fetches the current temperature
-  const fetchCurrentTemp = async function () {
-    try {
-      const response = await fetch(
-        "http://raspberrypi.local/thermoApp.fcgi/current_temp",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setCurrentTemp(data.temp.toString());
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.error("There has been a problem with the request:", error);
-    }
-  };
-
-  const fetchAvgTempTotal = async function () {
-    const response = await fetch(
-      "http://raspberrypi.local/thermoApp.fcgi/avg_temp_total",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setAvgTempTotal(data.temp.toString());
-  };
-
-  const fetchHighestTempTotal = async function () {
-    const response = await fetch(
-      "http://raspberrypi.local/thermoApp.fcgi/highest_temp_total",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setHighestTempTotal(data.temp.toString());
-  };
-
-  const fetchLowestTempTotal = async function () {
-    const response = await fetch(
-      "http://raspberrypi.local/thermoApp.fcgi/lowest_temp_total",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setLowestTempTotal(data.temp.toString());
-  };
-
-  // Fetch the temps for today for displaying them in the temp chart
-  const fetchTodaysTemps = async function () {
-    try {
-      const response = await fetch(
-        "http://raspberrypi.local/thermoApp.fcgi/todays_temps",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setTodaysTemps(data.temperatures);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.error("There has been a problem with the request:", error);
-    }
-  };
-
-  // This effect hook executes the fetchCurrentTemp function only once, when the page loads
   useEffect(() => {
-    fetchCurrentTemp();
-    fetchAvgTempTotal();
-    fetchHighestTempTotal();
-    fetchLowestTempTotal();
-    fetchTodaysTemps();
+    fetchCurrentTemp().then((currentTemp) => setCurrentTemp(currentTemp));
+    fetchAvgTempTotal().then((avgTempTotal) => setAvgTempTotal(avgTempTotal));
+    fetchHighestTempTotal().then((highestTempTotal) =>
+      setHighestTempTotal(highestTempTotal)
+    );
+    fetchLowestTempTotal().then((lowestTempTotal) =>
+      setLowestTempTotal(lowestTempTotal)
+    );
+    fetchTodaysTemps().then((todaysTemps) => setTodaysTemps(todaysTemps));
   }, []);
 
   return (
