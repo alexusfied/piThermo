@@ -1,8 +1,8 @@
-const basePath = "http://raspberrypi.local/thermoApp.fcgi/";
+import {api} from "../adapters/api";
 
 export async function fetchCurrentTemp(): Promise<string> {
   try {
-    const response = await fetch(basePath + "current_temp");
+    const response = await api.get("current_temp");
     const data = await response.json();
 
     if (!response.ok) {
@@ -18,7 +18,7 @@ export async function fetchCurrentTemp(): Promise<string> {
 
 export async function fetchAvgTempTotal(): Promise<string> {
   try {
-    const response = await fetch(basePath + "avg_temp_total");
+    const response = await api.get("avg_temp_total");
     const data = await response.json();
 
     if (!response.ok) {
@@ -34,7 +34,7 @@ export async function fetchAvgTempTotal(): Promise<string> {
 
 export async function fetchHighestTempTotal(): Promise<string> {
   try {
-    const response = await fetch(basePath + "highest_temp_total");
+    const response = await api.get("highest_temp_total");
     const data = await response.json();
 
     if (!response.ok) {
@@ -50,7 +50,7 @@ export async function fetchHighestTempTotal(): Promise<string> {
 
 export async function fetchLowestTempTotal(): Promise<string> {
   try {
-    const response = await fetch(basePath + "lowest_temp_total");
+    const response = await api.get("lowest_temp_total");
     const data = await response.json();
 
     if (!response.ok) {
@@ -66,7 +66,7 @@ export async function fetchLowestTempTotal(): Promise<string> {
 
 export async function fetchTodaysTemps(): Promise<number[]> {
   try {
-    const response = await fetch(basePath + "todays_temps");
+    const response = await api.get("todays_temps");
     const data = await response.json();
 
     if (!response.ok) {
